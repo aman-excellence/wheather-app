@@ -8,15 +8,22 @@ function App () {
   const [city, setCity] = useState(' ')
   const [data, setData] = useState([])
   const [extendedforcast, setExtendedforcast] = useState([])
-  const [status, setStatus] = useState(false)
+
 
   const showWhether = async e => {
     e.preventDefault()
-    const res = await fetchWeatherData(city)
-    const forcastresult = await fetchextendedforcast(city)
-    setData(res)
-    if (forcastresult) {
-      setExtendedforcast(forcastresult)
+    if (!city) {
+      window.alert('Please add city')
+    }
+    try {
+      const res = await fetchWeatherData(city)
+      const forcastresult = await fetchextendedforcast(city)
+      setData(res)
+      if (forcastresult) {
+        setExtendedforcast(forcastresult)
+      }
+    } catch (error) {
+      window.alert(error.message)
     }
   }
 
